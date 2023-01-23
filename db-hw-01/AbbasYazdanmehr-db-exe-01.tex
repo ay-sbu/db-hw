@@ -1,0 +1,92 @@
+\documentclass[a4paper]{article}
+
+%%% usepackage %%%
+\usepackage{xepersian}
+\settextfont{Dubai}
+\fontsize{30}{12}\selectfont
+
+
+%%% newcommand %%%
+\newcommand{\fulltitle}[2]{\title{#1 \\ #2}}
+\newcommand{\myinf}{\author{عباس یزدان مهر \\ 99243077 \\ مهندسی کامپیوتر, دانشگاه شهید بهشتی}}
+\newcommand{\goodbye}{\begin{center}{\huge
+پایان!
+}\end{center}}
+
+
+
+\begin{document}
+
+\fulltitle{
+پایگاه داده
+}{
+تمرین اول
+}
+
+\myinf
+
+\maketitle
+
+\newpage
+
+
+\section{}
+به دلایل متفاوت یک فایل یک پایگاه داده محسوب نمی شود:
+\begin{description}
+	\item[اطلاعات اضافه و ناپیوسته]
+از جایی که برنامه نویس های متفاوت در طول زمان زیاد برنامه های متفاوت توسعه می دهند پس فایل هایی که درست می شود ساختارها و شکل های متفاوتی دارند. یک مشکل دیگر ناپیوسته بودن و تکراری بودن اطلاعات در فایل است چون ممکن است در مکان های متفاوتی به اطلاعات نیاز داشته باشیم و برای هر مکان باید یک فایل داشته باشیم پس برای تغییر یک اطلاعات کوچک باید تمام فایل هایی که در جاهای متفاوت داریم را بصورت تک به تک تغییر دهیم که خیلی کار سخت و بی فایده ای است و علاوه بر آن بدلیل تکراری بودن این اطلاعات داریم فضای حافظه ای زیادی از دست میدهیم.
+	\item[سختی دسترسی به اطلاعات]
+خیلی مواقع نیاز است که اطلاعاتی با ویژگی خاص را بدست آوریم مثلا لیستی از دانش آموزانی که معدل بالای 17 دارند یا ... در ذخیره سازی فایل برای این کار باید برنامه نویس را برای هر نیاز خاص بکار بگیریم تا برنامه ای بنویسد که اطلاعات درخواستی را به ما بدهد و این اصلا جالب نیست پس باید برنامه ای ویژه داشته باشیم که این کار را صورت دهد.
+	\item[ایزوله بودن اطلاعات]
+وقتی اطلاعات را در فایل ذخیره می کنیم نوع نوشتن اطلاعات در فایل جزئی از اطلاعات فایل می شود به اصطلاح اطلاعات ایزوله نیست و این قضیه می تواند مشکلاتی ایجاد کند.
+\end{description}
+
+\section{}
+\subsection{}
+	\begin{latin}
+		\begin{description}
+			\item[DDL(Data-Defenition Language)]: We specify a database schema by a set of definitions expressed by a special language
+called a data-definition language (DDL). The DDL is also used to specify additional
+properties of the data.
+			\item[DML(Data-Manipulation Language)]: A data-manipulation language (DML) is a language that enables users to access or manipulate data as organized by the appropriate data model. The types of access are: Retrieve, Delete, Insert, Modify(Update).
+		\end{description}
+	\end{latin}
+\subsection{}
+	\begin{latin}
+		\begin{description}
+			\item[DDL:]
+					CREATE TABLE students
+					(name char(20),
+					age numeric(2, 0));
+			\item[DML:]
+					INSERT INTO students(name, age) VALUES	(''ali'', 20);
+			\item[DML:]
+					SELECT * FROM students;
+		\end{description}
+	\end{latin}
+
+\section{}
+استقلال فیزیکی داده به توانایی تغییردادن ساختار پایین ترین لایه پایگاه داده بدون تاثیر گذاری روی لایه های بالاتر شماتیک گفته می شود.(هر پایگاه داده 3 سطح معماری طرحواره دارد: سطح فیزیکی، سطح منطقی و سطح نما.)
+
+دلیل اینکه ما بخواهیم در سطح فیزیکی داده را تغییر بدهیم این است که ممکن است بخواهیم فایل ها یا فهرست هایی را اضافه یا کم کنیم تا عملکرد سیستم پایگاه داده را افزایش داده و سریع تر کنیم و این فقط وقتی ممکن است که استقلال فیزیکی داده برقرار باشد.
+
+\section{}
+.a\\
+این دستور ابتدا تمام take هایی که سال آنها از 2009 بیشتر مساوی است را انتخاب می کند و سپس با جدول دانشجو پیوند می دهد. در واقع تمام دانشجو هایی را نشان میدهد که پس از سال 2008 در دوره ای شرکت کرده اند.
+\\.b \\
+این دستور ابتدا جداول $take, student$ را باهم پیوند می دهد و سپس از بین آنها تمام سطر هایی که سال آنها بیشتر مساوی 2009 است را انتخاب می کند. در واقع خروجی با مثال a فرقی نمی کند.
+\\.c \\
+این دستور ابتدا دو جدول $ takes, student $ را پیوند می دهد و سپس ستون های نوشته شده $(ID, name, course\_id)$ را انتخاب می کند.
+
+\section{}
+خیر - چون ممکن است دو $ advisor$ دقیقا مقادیر یکسان داشته باشند آنگاه دیگر$ s\_id$ کلید کاندیدا نیست پس کلید اصلی هم نیست. کلید کاندیدای جدید مجموعه $(s\_id, i\_id)$ است که تنها انتخاب برای کلید اصلی است.
+
+
+\section{}
+1. برای مقادیری که وجود دارند ولی نامشخص هستند به null نیاز داریم.
+\\
+2. برای مقادیری که اصلا وجود ندارند به null نیاز داریم.
+
+\newpage
+\goodbye
+\end{document}

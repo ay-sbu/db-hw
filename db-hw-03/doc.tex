@@ -1,0 +1,233 @@
+\documentclass[a4paper]{article}
+
+%%% usepackage %%%
+\usepackage{color}
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage{import}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage[inner=2cm, outer=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{xepersian}
+\settextfont{Dubai}
+\fontsize{30}{12}\selectfont
+\usepackage{eso-pic}% http://ctan.org/pkg/eso-pic
+\usepackage{lipsum}% http://ctan.org/pkg/lipsum
+
+%%% define color %%%
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\def\ojoin{\setbox0=\hbox{$\bowtie$}%
+  \rule[-.02ex]{.25em}{.4pt}\llap{\rule[\ht0]{.25em}{.4pt}}}
+\def\leftouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie}}
+\def\rightouterjoin{\mathbin{\bowtie\mkern-5.8mu\ojoin}}
+\def\fullouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie\mkern-5.8mu\ojoin}}
+
+\lstset{frame=tb,
+  language=SQL,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+%%% newcommand %%%
+\newcommand{\emailone}{\texttt{abbas.yazdanmehr1@gmail.com}}
+\newcommand{\fulltitle}[2]{\title{#1 \\ #2}}
+\newcommand{\myinf}{
+	\author{\noindent
+عباس یزدان مهر
+\\
+99243077\\
+ مهندسی کامپیوتر, دانشگاه شهید بهشتی
+\\
+\emailone
+	}
+}
+\newcommand{\goodby}{\begin{center}{\huge
+پایان
+}\end{center}}
+
+
+
+\begin{document}
+
+\fulltitle{
+پایگاه داده
+}{
+تمرین سوم
+}
+
+\myinf
+
+\maketitle
+
+\newpage
+
+
+\noindent \myinf
+
+
+\section{}
+S (تهیه کنندگان) \\
+P (قطعات) \\
+J (پروژه ها) \\
+\subsection*{a}
+
+\begin{displaymath}
+  \sigma_{city='tehran'}(J)
+\end{displaymath}
+
+\subsection*{b}
+
+\begin{displaymath}
+  \Pi_{sname}(\sigma_{p\#='p2'}(S \bowtie SPJ))
+\end{displaymath}
+
+\subsection*{c}
+
+\begin{displaymath}
+  \Pi_{sname}(((\sigma_{color='blue'}(P)) \bowtie SPJ) \bowtie S)
+\end{displaymath}
+
+
+\subsection*{d}
+
+\begin{displaymath}
+  \Pi_{sname}(((\Pi_{s\#, p\#}(SPJ)) \div (\Pi_{p\#}(P))) \bowtie S)
+\end{displaymath}
+
+\subsection*{e}
+
+\begin{displaymath}
+  \Pi_{sname}(S) - \Pi_{sname}(\sigma_{p\#='p2'}(S \bowtie SPJ))
+\end{displaymath}
+
+\subsection*{f}
+
+\begin{latin}
+\begin{displaymath}
+  \Pi_{p\#}(SPJ \bowtie (\sigma_{city='tehran'}(S))) \cup \Pi_{p\#}(SPJ \bowtie (\sigma_{city='tehran'}(J)))
+\end{displaymath}  
+\end{latin}
+
+\newpage
+\myinf
+%%% Q2
+\section{}
+\subsection*{a}
+
+\begin{displaymath}
+  \sigma_{amount>1000} (loan)
+\end{displaymath}
+
+\subsection*{b}
+
+\begin{displaymath}
+  \Pi_{loan\_number}(\sigma_{amount>1000} (loan))
+\end{displaymath}
+
+\subsection*{c}
+
+\begin{displaymath}
+  \Pi_{customer\_name} (borrower) \cap \Pi_{customer\_name} (depositor)
+\end{displaymath}
+
+
+\subsection*{d}
+
+\begin{displaymath}
+  \Pi_{customer\_name} (\sigma_{branch\_name = 'centeral'} (loan \bowtie borrower))
+\end{displaymath}
+
+
+\subsection*{e}
+
+\begin{displaymath}
+  \Pi_{customer\_name} (\sigma_{branch\_name = 'b1'} (loan \bowtie borrower))
+\end{displaymath}
+
+\subsection*{f}
+
+\begin{latin}
+  $\Pi_{customer\_name} ( $\\
+  \indent \indent $ [\sigma_{branch\_city = 'tehran'} (branch) \bowtie \Pi_{account\_number, branch\_name}(account)] $ \\
+  \indent \indent \indent \indent $ \bowtie \Pi_{customer\_name, account\_number}(depositor) $ \\
+  $)$
+  
+\end{latin}
+
+\newpage
+\myinf
+%%% Q3
+\section{}
+\begin{latin} $\theta$ join: \end{latin}
+\begin{displaymath}
+  R \bowtie_\theta S = \sigma_\theta (R \times S)
+\end{displaymath}
+
+
+\begin{latin}\noindent natural join: \end{latin}
+\begin{displaymath}
+  R \bowtie S = \{r \cup s | r \in R \land s \in S \land Fun(r \cup s)\}
+\end{displaymath}
+
+که $Fun(x)$ در آن یک محمول است که بررسی می کند که آیا
+$x$ یک تابع است یا خیر.
+
+\newpage
+\myinf
+%%% Q4
+\section{}
+\subsection*{a}
+\begin{displaymath}
+  \{<a>|\exists b, c (<a,b,c> \in r_1)\}
+\end{displaymath}
+
+\subsection*{b}
+\begin{displaymath}
+  \{<a, b, c>|<a,b,c> \in r_1 \land b=17\}
+\end{displaymath}
+
+\subsection*{c}
+\begin{displaymath}
+  \{<a, b, c>|<a, b, c> \in r_1 \lor <a, b, c> \in r_2\}
+\end{displaymath}
+
+\subsection*{d}
+\begin{displaymath}
+  \{<a, b, c>|<a, b, c> \in r_1 \land <a, b, c> \in r_2\}
+\end{displaymath}
+
+\subsection*{e}
+\begin{displaymath}
+  \{<a, b, c>|<a, b, c> \in r_1 \land <a, b, c> \notin r_2\}
+\end{displaymath}
+
+\subsection*{f}
+\begin{displaymath}
+  \{<a, b, c>|\exists c (<a,b,c> \in r_1) \lor \exists a (<a,b,c> \in r_2)\}
+\end{displaymath}
+
+\newpage
+\goodby
+\end{document}

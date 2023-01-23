@@ -1,0 +1,275 @@
+\documentclass[a4paper]{article}
+
+%%% usepackage %%%
+\usepackage{color}
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage{import}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage[inner=2cm, outer=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{xepersian}
+\settextfont{Dubai}
+\fontsize{30}{12}\selectfont
+\usepackage{eso-pic}% http://ctan.org/pkg/eso-pic
+\usepackage{lipsum}% http://ctan.org/pkg/lipsum
+
+%%% define color %%%
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=SQL,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+%%% newcommand %%%
+\newcommand{\emailone}{\texttt{abbas.yazdanmehr1@gmail.com}}
+\newcommand{\fulltitle}[2]{\title{#1 \\ #2}}
+\newcommand{\myinf}{
+	\author{
+عباس یزدان مهر
+\\
+99243077\\
+ مهندسی کامپیوتر, دانشگاه شهید بهشتی
+\\
+\emailone
+	}
+}
+\newcommand{\goodBYe}{\begin{center}{\huge
+پایان
+}\end{center}}
+
+
+
+\begin{document}
+
+\fulltitle{
+پایگاه داده
+}{
+تمرین دوم
+}
+
+\myinf
+
+\maketitle
+
+\newpage
+
+
+\section{}
+\noindent \myinf
+\subsection*{الف}
+
+\begin{latin}
+\begin{lstlisting}
+SELECT DISTINCT name FROM student, takes 
+  WHERE student.ID = takes.ID;
+\end{lstlisting}
+\end{latin}
+
+
+\subsection*{ب}
+
+\begin{latin}
+\begin{lstlisting}
+SELECT dept_name, name, MAX(salary) FROM instructor GROUP BY dept_name;
+\end{lstlisting}
+\end{latin}
+
+
+
+
+\subsection*{پ}
+\begin{latin}
+\begin{lstlisting}
+SELECT dept_name, name, MIN(salary) FROM
+ (SELECT dept_name, name, MAX(salary) AS salary FROM instructor GROUP BY dept_name);
+\end{lstlisting}
+\end{latin}
+
+\subsection*{ت}
+
+\begin{latin}
+\begin{lstlisting}
+INSERT INTO course (course_id, title, dept_name, credits)
+  VALUES
+    ('CE-100', 'Weekly Seminar', 'CE', 0);
+\end{lstlisting}
+\end{latin}
+
+
+\subsection*{ث}
+
+\begin{latin}
+\begin{lstlisting}
+INSERT INTO section (course_id, sec_id, semester, year, building, room_number, time_slot_id)
+  VALUES 
+    ('CE-100', '1', 'Spring', '1401', 'CE', '100', '1');
+\end{lstlisting}
+\end{latin}
+
+
+\subsection*{ج}
+
+\begin{latin}
+\begin{lstlisting}
+INSERT INTO takes(id, course_id, sec_id, semester, year, grade)
+SELECT student.id, 'CE-100', 1, 'Spring', '1401', null FROM student WHERE student.dept_name = 'CE';
+\end{lstlisting}
+\end{latin}
+
+\subsection*{چ}
+
+\begin{latin}
+\begin{lstlisting}
+DELETE FROM takes WHERE id IN 
+  (SELECT id FROM student WHERE name = 'Ali Ahmadi');
+\end{lstlisting}
+\end{latin}
+
+\subsection*{ح}
+پیام خطا نشان می دهد که یک خطای محدودیت کلید خارجی وجود دارد، به این معنی که شما در حال حذف یک جدول والد هستید که در آن جدول فرزند، شناسه جدول اصلی به عنوان یک کلید خارجی وجود دارد. برای جلوگیری از این خطا، ابتدا باید رکوردهای جدول فرزند و پس از آن رکورد جدول والد را حذف کنید:
+
+\begin{latin}
+\begin{lstlisting}
+DELETE FROM takes WHERE course_id = 'CE-100';
+DELETE FROM section WHERE course_id = 'CE-100';
+DELETE FROM course WHERE course_id = 'CE-100';
+\end{lstlisting}
+\end{latin}
+\noindent \myinf
+\subsection*{خ}
+\begin{latin}
+\begin{lstlisting}
+DELETE FROM takes WHERE course_id in
+  (SELECT id FROM course WHERE course.title LIKE '%database%');
+DELETE FROM section WHERE course_id in
+  (SELECT id FROM course WHERE course.title LIKE '%database%');
+DELETE FROM course WHERE course.title LIKE '%database%';
+\end{lstlisting}
+\end{latin}
+
+
+\section{}
+
+\subsection*{الف}
+
+\begin{latin}
+\begin{lstlisting}
+SELECT * from food WHERE food.id IN
+  (SELECT food_id FROM cooks WHERE restaurant_id = 1);
+\end{lstlisting}
+\end{latin}
+
+
+\subsection*{ب}
+
+\begin{latin}
+\begin{lstlisting}
+SELECT * FROM customer WHERE customer.id IN 
+  (SELECT customer_id FROM invoice) AND phone IS null;
+\end{lstlisting}
+\end{latin}
+
+\subsection*{پ}
+\begin{latin}
+\begin{lstlisting}
+DELETE FROM food WHERE id IN
+ (SELECT food_id FROM invoice WHERE invoice.date != '1401');
+\end{lstlisting}
+\end{latin}
+
+\subsection*{ت}
+
+\begin{latin}
+\begin{lstlisting}
+SELECT name FROM restaurant WHERE id in
+  (SELECT restaurant_id FROM
+      (SELECT restaurant_id, MAX(types_count) AS maximum FROM
+          (SELECT restaurant_id, COUNT(food_id) AS types_count
+               FROM cooks GROUP BY restaurant_id
+           )
+       )
+   );  
+\end{lstlisting}
+\end{latin}
+دقت داریم که در یک رستوران نمیتواند دو آی دی یکسان غذا موجود باشد.
+
+\subsection*{ث}
+
+\begin{latin}
+\begin{lstlisting}
+SELECT name FROM food WHERE id IN 
+  (SELECT food_id FROM invoice WHERE date = '1400');
+\end{lstlisting}
+\end{latin}
+
+
+
+\subsection*{ج}
+
+\begin{latin}
+\begin{lstlisting}
+SELECT name FROM customer WHERE id IN
+  (SELECT customer_id FROM invoice WHERE food_count > 3);
+\end{lstlisting}
+\end{latin}
+\noindent \noindent \myinf
+\subsection*{چ}
+
+\begin{latin}
+\begin{lstlisting}
+SELECT food_id FROM cooks WHERE price <
+  (SELECT MIN(price) AS minimum 
+      FROM cooks WHERE restaurant_id = 1
+  );
+\end{lstlisting}
+\end{latin}
+
+\subsection*{ح}
+
+\begin{latin}
+\begin{lstlisting}
+CREATE TABLE new_cooks
+  SELECT restaurant_id, food_id, FLOOR(0.95 * price) AS price
+    FROM cooks WHERE price > 100;
+\end{lstlisting}
+\end{latin}
+
+\subsection*{خ}
+\begin{latin}
+\begin{lstlisting}
+SELECT name FROM food WHERE id IN  
+  (SELECT food_id FROM 
+      (SELECT food_id, SUM(food_count) AS all_sell 
+          FROM invoice GROUP BY food_id ORDER BY all_sell DESC
+      ) LIMIT 10
+  );
+\end{lstlisting}
+\end{latin}
+
+\newpage
+\goodBYe
+\end{document}
